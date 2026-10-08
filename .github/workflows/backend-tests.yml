@@ -1,0 +1,18 @@
+name: Backend tests
+on:
+  push:
+    branches: [main, feature/offline-execution-foundation]
+  pull_request:
+    paths:
+      - "backend/**"
+      - ".github/workflows/backend-tests.yml"
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Unit tests
+        run: PYTHONPATH=backend python -m unittest discover -s backend/tests -v
